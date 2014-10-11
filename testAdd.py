@@ -17,6 +17,8 @@ class BasicAdditionTest(unittest.TestCase):
     def testOneTwoStr(self):
         self.assertTrue(add.add("1,2") == 3)
     #Test 4
+    def testThousandOneStr(self):
+        self.assertTrue(add.add('1,2,3,1001,2001') == 6)
 
 #Tests if the function can handle arbitrary ranges
 class AdditionRangeTest(unittest.TestCase):
@@ -31,7 +33,7 @@ class AdditionRangeTest(unittest.TestCase):
         sum = ""
         for i in range(1, 100001):
             sum += '{0},'.format(i)
-        self.assertTrue(add.add(sum) == 5000050000)
+        self.assertTrue(add.add(sum) == 500500) #digits larger than 1000 should be ignored
 
 class AdditionDelimTest(unittest.TestCase):
     #Test 7
@@ -47,8 +49,10 @@ class AdditionDelimTest(unittest.TestCase):
         for i in range(1, 100001):
             sum += '{0}{1}'.format(i,delim[i%2])
         self.assertTrue(add.add(sum) == 5000050000)
+    #Test 10
     def testNewDelim(self):
         self.assertTrue(add.add("//;\n1;2"))
+    #Test 11
     def testAsciiDelim(self):
         for letter in string.ascii_letters:
             self.assertTrue(add.add('//{0}\n1{0}2'.format(letter)) == 3)
