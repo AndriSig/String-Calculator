@@ -20,7 +20,7 @@ def add(numbers):
             for negative in matches:
                 errorString += negative +','
             raise ValueError(errorString)
-        if number.isdigit():
+        if number.isdigit() and int(number) < 1001:
             result += int(number)
     return result
 

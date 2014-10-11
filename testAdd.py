@@ -48,7 +48,7 @@ class AdditionDelimTest(unittest.TestCase):
         delim = [',','\n']
         for i in range(1, 100001):
             sum += '{0}{1}'.format(i,delim[i%2])
-        self.assertTrue(add.add(sum) == 5000050000)
+        self.assertTrue(add.add(sum) == 500500)
     #Test 10
     def testNewDelim(self):
         self.assertTrue(add.add("//;\n1;2"))
