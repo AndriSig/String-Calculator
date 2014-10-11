@@ -60,9 +60,12 @@ class AdditionDelimTest(unittest.TestCase):
             self.assertTrue(add.add('//{0}\n1{0}2'.format(white)) == 3)
 
 class AdditionExceptionTest(unittest.TestCase):
-    def testNegativeInput(self):
-        with self.assertRaises(ValueError):
-            self("1,2,-3")
+    def testSingleNegativeInput(self):
+        with self.assertRaisesRegexp(ValueError, 'Negatives not allowed: -3'):
+            add.add( "1,2,-3")
+    def testMultipleNegativeInputs(self):
+        with self.assertRaisesRegexp(ValueError, 'Negatives not allowed: -2,-5,-8'):
+            add.add( "1,-2,5,-5,6,7,-8")
 def main():
     unittest.main()
 
