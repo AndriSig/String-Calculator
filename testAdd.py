@@ -55,6 +55,14 @@ class AdditionDelimTest(unittest.TestCase):
     def testPunctDelim(self):
         for punct in string.punctuation:
             self.assertTrue(add.add('//{0}\n1{0}2'.format(punct)) == 3)
+    def testWhiteSpaceDelim(self):
+        for white in string.whitespace:
+            self.assertTrue(add.add('//{0}\n1{0}2'.format(white)) == 3)
+
+class AdditionExceptionTest(unittest.TestCase):
+    def testNegativeInput(self):
+        with self.assertRaises(ValueError):
+            self("1,2,-3")
 def main():
     unittest.main()
 
