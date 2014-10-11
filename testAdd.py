@@ -2,6 +2,7 @@
 import sys
 import unittest
 import add
+import string
 
  
 #Tests the basic additive function of the method
@@ -33,17 +34,27 @@ class AdditionRangeTest(unittest.TestCase):
         self.assertTrue(add.add(sum) == 5000050000)
 
 class AdditionDelimTest(unittest.TestCase):
+    #Test 7
     def testOneEndl(self):
         self.assertTrue(add.add("1\n2,3") == 6)
+    #Test 8
     def testTwoEndl(self):
         self.assertTrue(add.add("1\n2\n3") == 6)
+    #Test 9
     def testStaggeredEndl(self):
         sum = ""
         delim = [',','\n']
         for i in range(1, 100001):
             sum += '{0}{1}'.format(i,delim[i%2])
         self.assertTrue(add.add(sum) == 5000050000)
-
+    def testNewDelim(self):
+        self.assertTrue(add.add("//;\n1;2"))
+    def testAsciiDelim(self):
+        for letter in string.ascii_letters:
+            self.assertTrue(add.add('//{0}\n1{0}2'.format(letter)) == 3)
+    def testPunctDelim(self):
+        for punct in string.punctuation:
+            self.assertTrue(add.add('//{0}\n1{0}2'.format(punct)) == 3)
 def main():
     unittest.main()
 
