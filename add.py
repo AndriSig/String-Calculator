@@ -3,12 +3,9 @@ import sys
 
 def add(numbers):
     result = 0
-    numbers.rsplit(',')
-    for i in range(0,len(numbers)):
-        if i > 2:
-            break
-        if numbers[i].isdigit():
-            result += int(numbers[i])
+    for number in numbers.rsplit(','):
+        if number.isdigit():
+            result += int(number)
     return result
 
 def res(testNr, inp, res):
@@ -39,9 +36,10 @@ if add(sum) == 5050:
 else:
     res(1, '1,2,...,100', 0)
 sum = ""
-for i in range(1, 100000):
+for i in range(1, 100001):
     sum += '{0},'.format(i)
 if add(sum) == 5000050000:
     res(1, '1,2,...,10^5', 1)
 else:
     res(1, '1,2,...,10^5', 0)
+
