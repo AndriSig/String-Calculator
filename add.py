@@ -11,8 +11,3 @@ def add(numbers):
             result += int(number)
     return result
 
-def res(testNr, inp, res):
-    pf = [ 'Failed','Passed']
-    print('add({0}) Unit test Nr {1}: {2}'.format(inp, testNr, pf[res])) 
-
-
