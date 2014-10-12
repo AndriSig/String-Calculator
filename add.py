@@ -11,9 +11,7 @@ def neg(numbers):
         errorString += negative +','
     raise ValueError(errorString)
 
-
-def add(numbers):
-    result = 0
+def findDelim(numbers):
     delim = ','
     if numbers[:2] == '//':
         if re.match('//(\[.*?\])', numbers) is not None:
@@ -25,7 +23,11 @@ def add(numbers):
             for d in delim:
                 t += '\\'+d
             delim = t
+    return delim
 
+def add(numbers):
+    result = 0
+    delim = findDelim(numbers)
     endl = re.compile('{0}|\n'.format(delim))
     for number in re.split(endl,numbers):
         if '-' in number:
