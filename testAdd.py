@@ -95,6 +95,10 @@ class AdditionExceptionTest(unittest.TestCase):
     def testMultipleNegativeInputs(self):
         with self.assertRaisesRegexp(ValueError, 'Negatives not allowed: -2,-5,-8'):
             add.add( "1,-2,5,-5,6,7,-8")
+
+class DelimiterMakerTest[unittest.TestCase):
+    def testMakeMultipleDelims(self):
+        self.assertTrue(add.findDelim('//[*][%]\n1*2%3') == '\*|\%|\n')
 def main():
     unittest.main()
 
