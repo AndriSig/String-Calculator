@@ -12,27 +12,38 @@ def neg(numbers):
     raise ValueError(errorString)
 
 def findDelim(numbers):
-    delim = ','
-    if numbers[:2] == '//':
-        if re.match('//(\[.*?\])', numbers) is not None:
-            delim = re.findall(r'\[([^]]*)\]', numbers.partition('\n')[0])[0]
+    delim = ''
+    if re.match('//(\[.*?\])', numbers) is not None:
+        delim = re.findall(r'\[([^]]*)\]', numbers.partition('\n')[0])
+    else:
+        if numbers[2] in string.punctuation:
+                delim = '\{0}'.format(numbers[2])
         else:
             delim = numbers[2]
-        if delim[0] in string.punctuation:
-            t = ""
-            for d in delim:
-                t += '\\'+d
-            delim = t
+    t = "["
+    if not isinstance(delim, str):
+        for d in delim:
+            t += '('
+            for i in d:
+                 if i in string.punctuation:
+                    t += '\{0}'.format(i)
+                 else:
+                     t += i
+            t += ')'
+        delim = t + ']'
     return delim
 
 def add(numbers):
+    endl = ',|\n'
+    if numbers[:2] == '//':
+        endl = re.compile(findDelim(numbers))
+        numbers = numbers.partition('\n')[2]
     result = 0
-    delim = findDelim(numbers)
-    endl = re.compile('{0}|\n'.format(delim))
     for number in re.split(endl,numbers):
         if '-' in number:
             neg(numbers)
-        if number.isdigit() and int(number) < 1001:
-            result += int(number)
+        if number.isdigit():
+            if int(number) < 1001:
+                result += int(number)
     return result
 
