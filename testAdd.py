@@ -66,13 +66,15 @@ class AdditionDelimTest(unittest.TestCase):
         self.assertTrue(add.add('//[***]\n1***2***3') == 6)
     def testAsciiLongDelim(self):
         for letter in string.ascii_letters:
-            self.assertTrue(add.add('//[{0}{0}{0}]\n1{0}2'.format(letter)) == 3)
+            self.assertTrue(add.add('//[{0}{0}{0}]\n1{0}{0}{0}2'.format(letter)) == 3)
     def testPunctLongDelim(self):
         for punct in string.punctuation:
-            self.assertTrue(add.add('//[{0}{0}{0}]\n1{0}2'.format(punct)) == 3)
+            if punct == '[' or punct == ']':
+                continue
+            self.assertTrue(add.add('//[{0}{0}{0}]\n1{0}{0}{0}2'.format(punct)) == 3)
     def testWhiteLongSpaceDelim(self):
         for white in string.whitespace:
-            self.assertTrue(add.add('//[{0}{0}{0}]\n1{0}2'.format(white)) == 3)
+            self.assertTrue(add.add('//[{0}{0}{0}]\n1{0}{0}{0}2'.format(white)) == 3)
     def testAsciiLongerDelim(self):
         for letter in string.ascii_letters:
             delim = ""
