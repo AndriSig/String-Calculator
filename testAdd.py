@@ -80,8 +80,13 @@ class AdditionDelimTest(unittest.TestCase):
             delim = ""
             for i in range(0, 30):
                 delim += letter
-            self.assertTrue(add.add('//[{0}]\n1{0}2'.format(letter)) == 3)
-
+            self.assertTrue(add.add('//['+delim+']\n1'+delim+'2') == 3)
+    def testMultipleDelim(self):
+        self.assertTrue(add.add('//[*][%]\n1*2%3') == 6)
+    def testMultipleAsciiDelim(self):
+        for letter in string.ascii_letters:
+            self.assertTrue(add.add('//[{0}][%][{0}{0}{0}]\n1{0}2%3{0}{0}{0}1'.format(letter)) == 7)
+       
 
 class AdditionExceptionTest(unittest.TestCase):
     def testSingleNegativeInput(self):
