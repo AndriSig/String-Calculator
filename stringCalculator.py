@@ -5,5 +5,9 @@ import unittest
 import string
 
 def add(numbers):
-    return ""
+    result = 0
+    for num in re.split(r',', numbers):
+        if num.isdigit():
+            result += int(num)
+    return result
   
