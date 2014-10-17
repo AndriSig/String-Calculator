@@ -71,6 +71,14 @@ class findDelimTest(unittest.TestCase):
     def testWhiteSpaceDelim(self):
         for white in string.whitespace:
             self.assertEqual(stringCalculator.findDelim('//{0}\n1{0}2'.format(white)),re.escape(white))
+
+class AddExceptionTest(unittest.TestCase):
+    def testSingleNegativeInput(self):
+        with self.assertRaisesRegexp(ValueError, 'Negatives not allowed: -3'):
+            stringCalculator.add( "1,2,-3")
+    def testMultipleNegativeInputs(self):
+        with self.assertRaisesRegexp(ValueError, 'Negatives not allowed: -2,-5,-8'):
+            stringCalculator.add("1,-2,5,-5,6,7,-8")
 def main():
     unittest.main()
 
