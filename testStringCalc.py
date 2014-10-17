@@ -33,7 +33,7 @@ class BasicAdditionTest(unittest.TestCase):
         delim = [',','\n']
         for i in range(1, 100001):
             sum += '{0}{1}'.format(i,delim[i%2])
-        self.assertEqual(stringCalculator.add(sum),5000050000)
+        self.assertEqual(stringCalculator.add(sum),500500)
     #Test 7
     #Make sure add is using the delimiter returned by findDelim properly
     def testAddFindDelimUse(self):
@@ -54,7 +54,7 @@ class AdditionRangeTest(unittest.TestCase):
         sum = ""
         for i in range (1,100001):
             sum += '{0},'.format(i)
-        self.assertEqual(stringCalculator.add(sum), 5000050000)
+        self.assertEqual(stringCalculator.add(sum), 500500)
 class findDelimTest(unittest.TestCase):
     #Test 1
     #findDelim should find the delimiter and return it, in this case ;
@@ -65,17 +65,24 @@ class findDelimTest(unittest.TestCase):
     def testAsciiDelim(self):
         for letter in string.ascii_letters:
             self.assertEqual(stringCalculator.findDelim('//{0}\n1{0}2'.format(letter)),letter)
+   #Test 3
+   #findDelim should be able to return any punctuation as a delim
     def testPunctDelim(self):
         for punct in string.punctuation:
             self.assertEqual(stringCalculator.findDelim('//{0}\n1{0}2'.format(punct)),re.escape(punct))
+    #findDelim should be able to return any whitespace as a delim
     def testWhiteSpaceDelim(self):
         for white in string.whitespace:
             self.assertEqual(stringCalculator.findDelim('//{0}\n1{0}2'.format(white)),re.escape(white))
 
 class AddExceptionTest(unittest.TestCase):
+    #Test 1
+    #A negative input should raise an exception
     def testSingleNegativeInput(self):
         with self.assertRaisesRegexp(ValueError, 'Negatives not allowed: -3'):
             stringCalculator.add( "1,2,-3")
+    #Test 2
+    #A negative input should raise an exception, the exception should list negative numbers
     def testMultipleNegativeInputs(self):
         with self.assertRaisesRegexp(ValueError, 'Negatives not allowed: -2,-5,-8'):
             stringCalculator.add("1,-2,5,-5,6,7,-8")
