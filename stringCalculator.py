@@ -11,3 +11,5 @@ def add(numbers):
             result += int(num)
     return result
   
+def findDelim(input):
+    return ""

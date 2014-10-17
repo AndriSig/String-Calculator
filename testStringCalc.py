@@ -48,8 +48,22 @@ class AdditionRangeTest(unittest.TestCase):
         for i in range (1,100001):
             sum += '{0},'.format(i)
         self.assertEqual(stringCalculator.add(sum), 5000050000)
-        
-        
+class findDelimTest(unittest.TestCase):
+    #Test 1
+    #findDelim should find the delimiter and return it, in this case ;
+    def testNewDelim(self):
+        self.assertEqual(stringCalculator.findDelim("//;\n1;2;3"), ';')
+    #Test 2
+    #findDelim should be able to return any ascii letter as a delim
+    def testAsciiDelim(self):
+        for letter in string.ascii_letters:
+            self.assertEqual(stringCalculator.findDelim('//{0}\n1{0}2'.format(letter)),letter)
+    def testPunctDelim(self):
+        for punct in string.punctuation:
+            self.assertEqual(stringCalculator.findDelim('//{0}\n1{0}2'.format(punct)),punct)
+    def testWhiteSpaceDelim(self):
+        for white in string.whitespace:
+            self.assertEqual(stringCalculator.findDelim('//{0}\n1{0}2'.format(white)),white)
 def main():
     unittest.main()
 
