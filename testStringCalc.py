@@ -70,10 +70,40 @@ class findDelimTest(unittest.TestCase):
     def testPunctDelim(self):
         for punct in string.punctuation:
             self.assertEqual(stringCalculator.findDelim('//{0}\n1{0}2'.format(punct)),re.escape(punct))
+    #Test 4
     #findDelim should be able to return any whitespace as a delim
     def testWhiteSpaceDelim(self):
         for white in string.whitespace:
             self.assertEqual(stringCalculator.findDelim('//{0}\n1{0}2'.format(white)),re.escape(white))
+    #Test 5
+    #findDelim should be able to return delim of any length
+    def testLongDelim(self):
+        self.assertEqual(stringCalculator.findDelim('//[***]\n1***2***3'), re.escape('***'))
+    #Test 6
+    #findDelim should be able to return ascii_letter delim of any length
+    def testAsciiLongDelim(self):
+        for letter in string.ascii_letters:
+            self.assertEqual(stringCalculator.findDelim('//[{0}{0}{0}]\n1{0}{0}{0}2'.format(letter)), '{0}{0}{0}'.format(letter))
+    #Test 7
+    #findDelim should be able to return punctuation delims of any length
+    def testPunctLongDelim(self):
+        for punct in string.punctuation:
+            if punct == '[' or punct == ']':
+                continue
+            self.assertEqual(stringCalculator.findDelim('//[{0}{0}{0}]\n1{0}{0}{0}2'.format(punct)),re.escape('{0}{0}{0}'.format(punct)))
+    #Test 8
+    #findDelim should be able to return a whitespace delim of any length
+    def testWhiteLongSpaceDelim(self):
+        for white in string.whitespace:
+            self.assertEqual(stringCalculator.findDelim('//[{0}{0}{0}]\n1{0}{0}{0}2'.format(white)),re.escape('{0}{0}{0}'.format(white)))
+    #Test 9
+    #It really should be any length
+    def testAsciiLongerDelim(self):
+        for letter in string.ascii_letters:
+            delim = ""
+            for i in range(0, 30):
+                delim += letter
+            self.assertEqual(stringCalculator.findDelim('//['+delim+']\n1'+delim+'2'),delim)
 
 class AddExceptionTest(unittest.TestCase):
     #Test 1
