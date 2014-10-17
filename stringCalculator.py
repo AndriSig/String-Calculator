@@ -7,12 +7,13 @@ import string
 def add(numbers):
     result = 0
     delim = ',|\n'
-    if numbers[:2] is '\\':
-        delim = findDelim(numbers)
+    if numbers[:2] == '//':
+        delim = re.compile(findDelim(numbers))
+        numbers = re.sub(r'^[^\d]*','', numbers)
     for num in re.split(delim, numbers):
         if num.isdigit():
             result += int(num)
     return result
   
 def findDelim(input):
-    return input[2]
+    return re.escape(input[2])

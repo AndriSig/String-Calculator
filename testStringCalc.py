@@ -59,7 +59,7 @@ class findDelimTest(unittest.TestCase):
     #Test 1
     #findDelim should find the delimiter and return it, in this case ;
     def testNewDelim(self):
-        self.assertEqual(stringCalculator.findDelim("//;\n1;2;3"), ';')
+        self.assertEqual(stringCalculator.findDelim("//;\n1;2;3"), re.escape(';'))
     #Test 2
     #findDelim should be able to return any ascii letter as a delim
     def testAsciiDelim(self):
@@ -70,7 +70,7 @@ class findDelimTest(unittest.TestCase):
             self.assertEqual(stringCalculator.findDelim('//{0}\n1{0}2'.format(punct)),re.escape(punct))
     def testWhiteSpaceDelim(self):
         for white in string.whitespace:
-            self.assertEqual(stringCalculator.findDelim('//{0}\n1{0}2'.format(white)),white)
+            self.assertEqual(stringCalculator.findDelim('//{0}\n1{0}2'.format(white)),re.escape(white))
 def main():
     unittest.main()
 
