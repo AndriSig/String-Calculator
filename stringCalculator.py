@@ -6,10 +6,13 @@ import string
 
 def add(numbers):
     result = 0
-    for num in re.split(r',|\n', numbers):
+    delim = ',|\n'
+    if numbers[:2] is '\\':
+        delim = findDelim(numbers)
+    for num in re.split(delim, numbers):
         if num.isdigit():
             result += int(num)
     return result
   
 def findDelim(input):
-    return ""
+    return input[2]
