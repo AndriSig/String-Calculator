@@ -13,7 +13,7 @@ def add(numbers):
     for num in re.split(delim, numbers):
         if '-' in num:
             raiseNeg(numbers)
-        if num.isdigit():
+        if num.isdigit() and int(num) < 1001:
             result += int(num)
     return result
   
