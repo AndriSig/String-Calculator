@@ -18,7 +18,20 @@ class BasicAdditionTest(unittest.TestCase):
     def testOneTwoStr(self):
         self.assertEqual(stringCalculator.add("1,2"),3)
 
-
+class AdditionRangeTest(unittest.TestCase):
+    def testHundred(self):
+        sum = ""
+        for i in range(1,101):
+            sum += '{0},'.format(i)
+        self.assertEqual(stringCalculator.add(sum),5050)
+    
+    def testHundredK(self):
+        sum = ""
+        for i in range (1,100001):
+            sum += '{0},'.format(i)
+        self.assertEqual(stringCalculator.add(sum), 5000050000)
+        
+        
 def main():
     unittest.main()
 
