@@ -3,6 +3,7 @@ import sys
 import unittest
 import string
 import stringCalculator
+import re
 
 class BasicAdditionTest(unittest.TestCase):
     #Test 1
@@ -33,6 +34,12 @@ class BasicAdditionTest(unittest.TestCase):
         for i in range(1, 100001):
             sum += '{0}{1}'.format(i,delim[i%2])
         self.assertEqual(stringCalculator.add(sum),5000050000)
+    #Test 7
+    #Make sure add is using the delimiter returned by findDelim properly
+    def testAddFindDelimUse(self):
+        for punct in string.punctuation:
+            self.assertEqual(stringCalculator.add('//{0}\n1{0}2'.format(punct)),3)
+        
 class AdditionRangeTest(unittest.TestCase):
     #Test 1
     #Sum series from 1 to 100 results in 5050
@@ -60,7 +67,7 @@ class findDelimTest(unittest.TestCase):
             self.assertEqual(stringCalculator.findDelim('//{0}\n1{0}2'.format(letter)),letter)
     def testPunctDelim(self):
         for punct in string.punctuation:
-            self.assertEqual(stringCalculator.findDelim('//{0}\n1{0}2'.format(punct)),punct)
+            self.assertEqual(stringCalculator.findDelim('//{0}\n1{0}2'.format(punct)),re.escape(punct))
     def testWhiteSpaceDelim(self):
         for white in string.whitespace:
             self.assertEqual(stringCalculator.findDelim('//{0}\n1{0}2'.format(white)),white)
