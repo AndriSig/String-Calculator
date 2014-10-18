@@ -39,7 +39,14 @@ class BasicAdditionTest(unittest.TestCase):
     def testAddFindDelimUse(self):
         for punct in string.punctuation:
             self.assertEqual(stringCalculator.add('//{0}\n1{0}2'.format(punct)),3)
-        
+    #Test 8
+    #Make sure add is able to use the multiple delimiters returned by findDelim
+    def testMultipleLongDelim(self):
+        for punct in string.punctuation:
+            if punct == '[' or punct == ']':
+                continue
+            self.assertEqual(stringCalculator.add('//[{0}][%][{0}{0}{0}]\n1{0}2%3{0}{0}{0}1'.format(punct)), 7)
+
 class AdditionRangeTest(unittest.TestCase):
     #Test 1
     #Sum series from 1 to 100 results in 5050
@@ -110,7 +117,13 @@ class findDelimTest(unittest.TestCase):
     #The program should allow for multiple delimiters
     def testMultipleDelim(self):
         self.assertEqual(stringCalculator.findDelim('//[*][%]\n1*2%3'), '[(\\*)(\\%)]')
-
+    #Test 11
+    #The program should allow for multiple delimiters of varying length.
+    def testMultipleLongDelim(self):
+        for punct in string.punctuation:
+            if punct == '[' or punct == ']':
+                continue
+            self.assertEqual(stringCalculator.findDelim('//[{0}][%][{0}{0}{0}]\n1{0}2%3{0}{0}{0}1'.format(punct)),'[(\\{0})(\\%)(\\{0}\\{0}\\{0})]'.format(punct) )
 class AddExceptionTest(unittest.TestCase):
     #Test 1
     #A negative input should raise an exception
