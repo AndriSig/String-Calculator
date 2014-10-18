@@ -95,6 +95,8 @@ class findDelimTest(unittest.TestCase):
     #findDelim should be able to return a whitespace delim of any length
     def testWhiteLongSpaceDelim(self):
         for white in string.whitespace:
+            if white == '\n':
+                continue
             self.assertEqual(stringCalculator.findDelim('//[{0}{0}{0}]\n1{0}{0}{0}2'.format(white)),re.escape('{0}{0}{0}'.format(white)))
     #Test 9
     #It really should be any length
