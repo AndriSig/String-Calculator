@@ -24,8 +24,6 @@ def findDelim(input):
         if len(delim) > 1:
             combo = '['
             for d in delim:
-                if len(d) > 1:
-                    break
                 combo += '(' + re.escape(d) + ')'
             combo += ']'
             return combo
