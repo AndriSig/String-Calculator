@@ -18,7 +18,19 @@ def add(numbers):
     return result
   
 def findDelim(input):
-    return re.escape(input[2])
+    input = re.findall(r'^[^\d]*', input)[0]
+    if re.match(r'//(\[.*?\])', input) is not None:
+        delim = re.findall(r'\[([^]]*)\]', input)
+        if len(delim) > 1:
+            combo = '['
+            for d in delim:
+                combo += '(' + re.escape(d) + ')'
+            combo += ']'
+            return combo
+        else:
+            return re.escape(delim[0])
+    else:
+        return re.escape(input[2])
 
 def raiseNeg(numbers):
     matches = re.findall('-\d*', numbers)
