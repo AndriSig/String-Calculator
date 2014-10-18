@@ -106,6 +106,10 @@ class findDelimTest(unittest.TestCase):
             for i in range(0, 30):
                 delim += letter
             self.assertEqual(stringCalculator.findDelim('//['+delim+']\n1'+delim+'2'),delim)
+    #Test 10
+    #The program should allow for multiple delimiters
+    def testMultipleDelim(self):
+        self.assertEqual(stringCalculator.findDelim('//[*][%]\n1*2%3'), '[(\\*)(\\%)]')
 
 class AddExceptionTest(unittest.TestCase):
     #Test 1
